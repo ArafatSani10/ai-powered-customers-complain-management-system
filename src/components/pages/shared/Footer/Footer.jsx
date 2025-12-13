@@ -49,33 +49,7 @@ const Footer = () => {
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
 
-                {/* --- 1. CTA Section (Halka/Light Contrast) --- */}
-                <motion.div
-                    className="bg-transparent rounded-xl p-10 md:p-12 -mt-16 mb-16"
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                >
-                    <div className="flex flex-col md:flex-row items-center justify-between">
-                        <div className="text-center md:text-left mb-6 md:mb-0">
-                            <h2 className="text-2xl md:text-4xl font-extrabold text-white">
-                                Ready to <span className="text-green-400">Transform</span> Your Preparation?
-                            </h2>
-                            <p className="text-gray-400 mt-2 text-sm">
-                                Join MCQ Analysis BD today and start your journey to academic success.
-                            </p>
-                        </div>
-                        <a href="#" className="w-full  md:w-auto">
-                            <motion.button
-                                className="px-8 py-3 text-lg font-semibold rounded-full bg-green-600 text-white hover:bg-green-700 transition duration-300 shadow-lg shadow-green-600/50"
-                                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(52, 211, 153, 0.7)" }} // Green box shadow pop
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Get Started Now
-                            </motion.button>
-                        </a>
-                    </div>
-                </motion.div>
+             
 
                 {/* --- 2. Main Footer Content Grid --- */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pb-16 pt-8">
@@ -83,7 +57,7 @@ const Footer = () => {
                     {/* 2.1. Logo and Description */}
                     <motion.div variants={itemVariants} className="col-span-1 md:col-span-1">
                         <div className="flex items-center mb-6">
-                           <img className='w-32 -mt-5' src="../../../../../public/logo/download.png" alt="" />
+                            <img className='w-32 -mt-5' src="../../../../../public/logo/download.png" alt="" />
                         </div>
                         <p className="text-gray-400 mt-4 text-sm">
                             Transform your academic goals with AI-powered insights. Achieve mastery through data-driven, strategic preparation.
