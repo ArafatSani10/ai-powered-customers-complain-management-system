@@ -10,6 +10,7 @@ import Mainlaout from './layout/Mainlayout/Mainlaout.jsx';
 import Home from './components/pages/Home/Home.jsx';
 import About from './components/pages/About/About.jsx';
 import Login from './components/pages/login/login.jsx';
+import TermsAndCondtions from './components/pages/TermsAndCondtions/TermsAndCondtions.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
       {
         path:'/about',
         element:<About></About>
+      },
+
+      {
+        path:'/terms-and-conditions',
+        element:<TermsAndCondtions></TermsAndCondtions>
       },
 
       {

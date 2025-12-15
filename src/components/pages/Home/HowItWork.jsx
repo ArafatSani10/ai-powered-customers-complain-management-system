@@ -108,7 +108,7 @@ const HowItWork = () => {
     if (isLoading) {
         return <LoadingSkeleton />;
     }
-    
+
 
     return (
         <section className="w-full bg-transparent py-24 overflow-hidden text-white">

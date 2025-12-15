@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { CiMenuFries } from 'react-icons/ci';
-import { IoClose } from 'react-icons/io5';
+import { IoBusinessOutline, IoClose, IoHomeOutline } from 'react-icons/io5';
 
-// প্রয়োজনীয় React Icons ইমপোর্ট করা হলো
 import { AiOutlineHome, AiOutlineInfoCircle } from 'react-icons/ai'; // Home, About
-import { BiBook } from 'react-icons/bi'; // Book
-import { RiFileListLine } from 'react-icons/ri'; // Exam (বা Syllabus/List)
-// import { TbArrowGuide  } from 'react-icons/io'; // Guideline
-import { FiVideo } from 'react-icons/fi'; // Video
+import { BiBook } from 'react-icons/bi';
+import { RiFileListLine } from 'react-icons/ri';
+import { FiVideo } from 'react-icons/fi';
+import { MdOutlineContactSupport, MdPolicy } from 'react-icons/md';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,41 +21,30 @@ const Navbar = () => {
         setIsOpen(!isOpen);
     };
 
-    // NavItems অ্যারে আপডেট করে আইকন যোগ করা হলো
-    const navItems = [
-        { name: 'Home', to: '/', icon: AiOutlineHome },
-        { name: 'About', to: '/about', icon: AiOutlineInfoCircle },
-        { name: 'Book', to: '/book', icon: BiBook },
-        // { name: 'Branches', to: '/branches' }, // Commented out
-        { name: 'Exam', to: '/exam', icon: RiFileListLine },
-        { name: 'Guideline', to: '/guideline', icon: BiBook },
-        { name: 'Video ', to: '/video', icon: FiVideo },
-    ];
+   const navItems = [
+    { name: 'Home', to: '/', icon: IoHomeOutline },
+    { name: 'About', to: '/about', icon: AiOutlineInfoCircle },
+    { name: 'Terms & Conditions', to: '/terms-and-conditions', icon: MdPolicy },
+    { name: 'Contact Us ', to: '/contact-us', icon: MdOutlineContactSupport },
+];
 
-    // Active class check function
     const isActiveLink = (path) => {
         return location.pathname === path;
     };
 
-    // Improved Scroll Logic
     const handleScroll = () => {
         if (isOpen) return;
 
         const currentScrollY = window.scrollY;
 
-        // Background change when scrolled
         setIsScrolled(currentScrollY > 50);
 
-        // Show/hide navbar logic
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down & past 100px - hide navbar
             setIsVisible(false);
         } else if (currentScrollY < lastScrollY) {
-            // Scrolling up - show navbar
             setIsVisible(true);
         }
 
-        // Always show navbar at top of page
         if (currentScrollY < 50) {
             setIsVisible(true);
         }
@@ -93,7 +81,6 @@ const Navbar = () => {
         },
     };
 
-    // Mobile menu animations
     const mobileMenuVariants = {
         closed: {
             opacity: 0,
@@ -113,7 +100,6 @@ const Navbar = () => {
         },
     };
 
-    // Menu item animations
     const itemVariants = {
         closed: {
             opacity: 0,
@@ -131,7 +117,6 @@ const Navbar = () => {
         },
     };
 
-    // Desktop nav item hover animation
     const navItemHover = {
         scale: 1.05,
         transition: {
@@ -141,10 +126,9 @@ const Navbar = () => {
         }
     };
 
-    // আইকন রেন্ডার করার জন্য একটি কাস্টম কম্পোনেন্ট ফাংশন
     const renderNavText = (item, isMobile = false) => {
         const IconComponent = item.icon;
-        const iconSize = isMobile ? '1.2em' : '1.1em'; // মোবাইল মেনুতে আইকন কিছুটা বড়
+        const iconSize = isMobile ? '1.2em' : '1.1em';
 
         return (
             <span className='flex items-center gap-2'>
@@ -183,7 +167,6 @@ const Navbar = () => {
                         </Link>
                     </motion.div>
 
-                    {/* Desktop Navigation - আইকন সহ আপডেট করা হলো */}
                     <div className='hidden md:flex items-center space-x-4'>
                         {navItems.map((item, index) => (
                             <motion.div
@@ -205,7 +188,7 @@ const Navbar = () => {
                                         : 'text-white hover:text-[#00baff]'
                                         }`}
                                 >
-                                    {renderNavText(item)} {/* Desktop-এর জন্য আইকন ও নাম রেন্ডার করা হলো */}
+                                    {renderNavText(item)}
 
                                     {/* Active Indicator */}
                                     {isActiveLink(item.to) && (
@@ -220,7 +203,6 @@ const Navbar = () => {
                                         />
                                     )}
 
-                                    {/* Hover Effect */}
                                     {!isActiveLink(item.to) && (
                                         <span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transition-all duration-300 group-hover:w-full'></span>
                                     )}
@@ -291,7 +273,7 @@ const Navbar = () => {
                     </motion.button>
                 </div>
 
-                {/* Mobile Navigation - আইকন সহ আপডেট করা হলো */}
+                {/* Mobile Navigation */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
@@ -323,7 +305,7 @@ const Navbar = () => {
                                                 whileHover={{ x: 5 }}
                                                 transition={{ type: "spring", stiffness: 400 }}
                                             >
-                                                {renderNavText(item, true)} {/* Mobile-এর জন্য আইকন ও নাম রেন্ডার করা হলো */}
+                                                {renderNavText(item, true)}
                                             </motion.span>
                                         </Link>
                                     </motion.div>
