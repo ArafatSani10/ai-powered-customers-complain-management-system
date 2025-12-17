@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AboutBanner = () => {
+const ContactBanner = () => {
     return (
         <div className="relative w-full h-[280px] md:h-[320px] lg:h-[350px] overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
 
@@ -77,7 +77,7 @@ const AboutBanner = () => {
                             <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur-sm"></div>
                             <div className="relative px-6 py-3 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-2xl">
                                 <span className="text-white font-bold text-lg tracking-wide">
-                                    About Us
+                                    Contact Us
                                 </span>
                                 {/* Indicator Dot */}
                                 <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
@@ -109,4 +109,4 @@ const AboutBanner = () => {
     );
 };
 
-export default AboutBanner; 
+export default ContactBanner;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const TermsBanner = () => {
     return (
-        <div className="relative w-full h-[280px] md:h-[320px] lg:h-[350px] overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="relative max-sm:mt-12 w-full h-[280px] md:h-[320px] lg:h-[350px] overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
 
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
@@ -77,7 +77,7 @@ const TermsBanner = () => {
                             <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur-sm"></div>
                             <div className="relative px-6 py-3 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-2xl">
                                 <span className="text-white font-bold text-lg tracking-wide">
-                                   Terms & Conditions
+                                    Terms & Conditions
                                 </span>
                                 {/* Indicator Dot */}
                                 <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
@@ -91,7 +91,7 @@ const TermsBanner = () => {
                     {/* Subtle Title (Optional - Minimal) */}
                     <div className="mt-6 opacity-80">
                         <div className="text-white/60 text-sm font-medium tracking-wider uppercase">
-                            Customer Complaint Management System
+                            Our Terms and Conditions page outlines the rules, responsibilities, and legal agreement governing your use of our website and services.
                         </div>
                     </div>
                 </div>
