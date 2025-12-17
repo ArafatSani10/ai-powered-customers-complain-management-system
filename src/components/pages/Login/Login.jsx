@@ -3,6 +3,7 @@ import Lottie from 'react-lottie-player';
 import lottieLogin from "../../../../public/lottie/chatbot.json";
 
 import { motion } from "framer-motion"
+import { Link } from 'react-router-dom';
 
 const LoadingSkeleton = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-indigo-900/20 flex items-center justify-center p-4">
@@ -377,9 +378,11 @@ export default function ModernLogin() {
                         <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800">
                             <p className="text-center text-gray-600 dark:text-gray-400">
                                 Don't have an account?{' '}
-                                <a href="#" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
-                                    Sign up for free
-                                </a>
+                                <Link to="/register">
+                                    <span className="font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors">
+                                        Sign up for free
+                                    </span>
+                                </Link>
                             </p>
                         </div>
                     </div>
