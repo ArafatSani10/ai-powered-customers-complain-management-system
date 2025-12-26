@@ -13,6 +13,7 @@ import Login from './components/pages/login/login.jsx';
 import TermsAndCondtions from './components/pages/TermsAndCondtions/TermsAndCondtions.jsx';
 import ContactUs from './components/pages/ContactUs/ContactUs.jsx';
 import Register from './components/pages/Register/Register.jsx';
+import HelpDesk from './components/pages/HelpDesk/HelpDesk.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
       {
         path: '/contact-us',
         element: <ContactUs></ContactUs>
+      },
+
+      {
+        path:'/help-desk',
+        element:<HelpDesk></HelpDesk>
       },
 
       {

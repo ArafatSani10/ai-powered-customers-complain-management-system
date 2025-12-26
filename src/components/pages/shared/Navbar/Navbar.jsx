@@ -3,12 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { CiMenuFries } from 'react-icons/ci';
 import { IoBusinessOutline, IoClose, IoHomeOutline } from 'react-icons/io5';
+import logo from "../../../../../public/logo/download.png"
 
 import { AiOutlineHome, AiOutlineInfoCircle } from 'react-icons/ai'; // Home, About
 import { BiBook } from 'react-icons/bi';
 import { RiFileListLine } from 'react-icons/ri';
 import { FiVideo } from 'react-icons/fi';
 import { MdOutlineContactSupport, MdPolicy } from 'react-icons/md';
+import { SiHelpdesk } from 'react-icons/si';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,12 +23,13 @@ const Navbar = () => {
         setIsOpen(!isOpen);
     };
 
-   const navItems = [
-    { name: 'Home', to: '/', icon: IoHomeOutline },
-    { name: 'About', to: '/about', icon: AiOutlineInfoCircle },
-    { name: 'Terms & Conditions', to: '/terms-and-conditions', icon: MdPolicy },
-    { name: 'Contact Us ', to: '/contact-us', icon: MdOutlineContactSupport },
-];
+    const navItems = [
+        { name: 'Home', to: '/', icon: IoHomeOutline },
+        { name: 'About', to: '/about', icon: AiOutlineInfoCircle },
+        { name: 'Terms & Conditions', to: '/terms-and-conditions', icon: MdPolicy },
+        { name: 'Contact Us ', to: '/contact-us', icon: MdOutlineContactSupport },
+        { name: 'Help Desk ', to: '/help-desk', icon: SiHelpdesk }
+    ];
 
     const isActiveLink = (path) => {
         return location.pathname === path;
@@ -162,7 +165,7 @@ const Navbar = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
-                                <img className=' rounded-full ' src="../../../../../public/logo/download.png" alt="" />
+                                <img className=' rounded-full ' src={logo} alt="" />
                             </motion.div>
                         </Link>
                     </motion.div>

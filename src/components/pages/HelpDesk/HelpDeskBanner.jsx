@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AboutBanner = () => {
+const HelpDeskBanner = () => {
     return (
         <div className="relative w-full h-[300px] md:h-[350px] lg:h-[450px] md:mt-10 mt-16 overflow-hidden bg-[#0a0a0f]">
             {/* Background Layers */}
@@ -33,7 +33,7 @@ const AboutBanner = () => {
                     </a>
                     <span className="text-slate-600">/</span>
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 font-semibold tracking-wide uppercase text-xs">
-                        About Our Vision
+                        Help Desk
                     </span>
                 </nav>
 
@@ -41,29 +41,27 @@ const AboutBanner = () => {
                 <div className="space-y-4 max-w-2xl">
                     <div className="inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-2">
                         <span className="relative flex h-2 w-2 mr-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                         </span>
-                        <span className="text-[10px] text-slate-300 uppercase tracking-[0.2em] font-bold">Who We Are</span>
+                        <span className="text-[10px] text-slate-300 uppercase tracking-[0.2em] font-bold">Support System</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Innovating for a <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400">Better Experience.</span>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
+                        How can we <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400">help you?</span>
                     </h1>
                     
                     <p className="text-slate-400 text-lg md:text-xl font-medium max-w-lg leading-relaxed">
-                        We are committed to bridging the gap between customers and solutions through our advanced Complaint Management System.
+                        Search our knowledge base or manage your existing support tickets with ease.
                     </p>
                 </div>
 
-                {/* Floating Decorative Element (Right side) - Changed Icon to "Users/Mission" */}
+                {/* Floating Decorative Element (Right side) */}
                 <div className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2">
                     <div className="w-64 h-64 border border-white/5 rounded-3xl rotate-12 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-[2px] flex items-center justify-center">
                         <div className="w-48 h-48 border border-white/10 rounded-2xl -rotate-6 bg-white/5 shadow-2xl flex items-center justify-center">
-                             {/* Abstract Users/Community Icon */}
                              <svg className="w-20 h-20 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                              </svg>
                         </div>
                     </div>
@@ -76,4 +74,4 @@ const AboutBanner = () => {
     );
 };
 
-export default AboutBanner;
+export default HelpDeskBanner;
