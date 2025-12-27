@@ -14,6 +14,8 @@ import TermsAndCondtions from './components/pages/TermsAndCondtions/TermsAndCond
 import ContactUs from './components/pages/ContactUs/ContactUs.jsx';
 import Register from './components/pages/Register/Register.jsx';
 import HelpDesk from './components/pages/HelpDesk/HelpDesk.jsx';
+import Dashboard from './components/Panel/Dashboard/Dashboard.jsx';
+import AdminHome from './components/Panel/Dashboard/AdminHome/AdminHome.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,8 +43,8 @@ const router = createBrowserRouter([
       },
 
       {
-        path:'/help-desk',
-        element:<HelpDesk></HelpDesk>
+        path: '/help-desk',
+        element: <HelpDesk></HelpDesk>
       },
 
       {
@@ -54,6 +56,17 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register></Register>
       },
+    ]
+  },
+
+  {
+    path: 'dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: 'admin-home',
+        element: <AdminHome></AdminHome>
+      }
     ]
   },
 ]);
