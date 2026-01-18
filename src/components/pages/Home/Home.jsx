@@ -4,10 +4,12 @@ import HowItWork from './HowItWork';
 import Featured from './Featured';
 import WhyItMatters from './WhyItMatters';
 import SuccessStory from './SuccessStory';
+import CountdownModal from '../../Hooks/CountdownModal';
 
 const Home = () => {
     return (
-        <div>
+        <div className='relative'>
+            <CountdownModal></CountdownModal>
             <Banner></Banner>
             <HowItWork></HowItWork>
             <Featured></Featured>

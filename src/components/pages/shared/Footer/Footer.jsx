@@ -1,36 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaRegEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaChartBar } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaRegEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 
-// --- Framer Motion Variants ---
-
-// Container for staggered animation
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-        },
+        transition: { staggerChildren: 0.1 },
     },
 };
 
-// Item animation for links and sections
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
 };
 
-// Social icon pop/pulse animation
 const socialHover = {
-    hover: { scale: 1.2, transition: { type: "spring", stiffness: 400, damping: 10 } } // Stronger pop effect
+    hover: { scale: 1.2, transition: { type: "spring", stiffness: 400, damping: 10 } }
 };
 
-// Quick Link hover animation (Slide to the right)
 const linkSlideHover = {
-    hover: { x: 5, transition: { type: "spring", stiffness: 300 } } // Subtle slide
+    hover: { x: 5, transition: { type: "spring", stiffness: 300 } }
 };
-
 
 const Footer = () => {
     const headerStyle = "text-xl font-bold text-green-400 mb-6 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-10 after:h-[2px] after:bg-green-500";
@@ -38,90 +30,102 @@ const Footer = () => {
     const contactIconBg = "bg-gray-700/50 p-2 rounded-lg text-green-400";
     const contactTextStyle = "text-gray-400 text-sm";
 
+    const quickLinks = [
+        { name: 'Features', path: '/features' },
+        { name: 'How It Works', path: '/how-it-works' },
+        { name: 'Why Choose Us', path: '/why-choose-us' },
+        { name: 'Pricing', path: '/pricing' },
+        { name: 'Success Stories', path: '/stories' }
+    ];
+
+    const resources = [
+        { name: 'Blog', path: '/blog' },
+        { name: 'Study Tips', path: '/tips' },
+        { name: 'FAQ', path: '/faq' },
+        { name: 'Support Center', path: '/support' },
+        { name: 'Admin-login', path: '/admin-login' }
+    ];
+
+    const legalLinks = [
+        { name: 'Privacy Policy', path: '/privacy' },
+        { name: 'Terms of Service', path: '/terms' },
+        { name: 'Cookie Policy', path: '/cookies' }
+    ];
 
     return (
         <motion.footer
-            className="w-full bg-transparent text-white"
+            className="w-full bg-transparent text-white pt-10"
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={{ once: true }}
             variants={containerVariants}
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-
-
-
-                {/* --- 2. Main Footer Content Grid --- */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pb-16 pt-8">
-
-                    {/* 2.1. Logo and Description */}
-                    <motion.div variants={itemVariants} className="col-span-1 md:col-span-1">
-                        <div className="flex items-center mb-6">
-                            <img className='w-32 -mt-5' src="../../../../../public/logo/download.png" alt="" />
-                        </div>
-                        <p className="text-gray-400 mt-4 text-sm">
+                    
+                    {/* Logo and Description */}
+                    <motion.div variants={itemVariants} className="col-span-2 md:col-span-1">
+                        <Link to="/" className="flex items-center mb-6">
+                            <img className='w-32 -mt-5' src="/logo/download.png" alt="Logo" />
+                        </Link>
+                        <p className="text-gray-400 mt-4 text-sm leading-relaxed">
                             Transform your academic goals with AI-powered insights. Achieve mastery through data-driven, strategic preparation.
                         </p>
-                        {/* Social Icons with POP Animation */}
                         <div className="flex space-x-4 mt-8">
-                            {[FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram].map((Icon, index) => (
+                            {[
+                                { Icon: FaFacebookF, url: "https://facebook.com" },
+                                { Icon: FaTwitter, url: "https://twitter.com" },
+                                { Icon: FaLinkedinIn, url: "https://linkedin.com" },
+                                { Icon: FaInstagram, url: "https://instagram.com" }
+                            ].map((item, index) => (
                                 <motion.a
                                     key={index}
-                                    href="#"
-                                    className="p-3 bg-gray-700 text-gray-300 rounded-full"
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-3 bg-gray-800 text-gray-300 rounded-full hover:bg-green-500 hover:text-white transition-colors"
                                     variants={socialHover}
                                     whileHover="hover"
                                 >
-                                    <Icon className="w-4 h-4" />
+                                    <item.Icon className="w-4 h-4" />
                                 </motion.a>
                             ))}
                         </div>
                     </motion.div>
 
-                    {/* 2.2. Quick Links (with Slide Animation) */}
+                    {/* Quick Links */}
                     <motion.div variants={itemVariants}>
                         <h3 className={headerStyle}>Quick Links</h3>
-                        <motion.ul className="space-y-4">
-                            {['Features', 'How It Works', 'Why Choose Us', 'Pricing', 'Success Stories'].map((link, index) => (
-                                <motion.li
-                                    key={index}
-                                    variants={itemVariants}
-                                    whileHover="hover"
-                                >
-                                    <motion.a
-                                        href="#"
-                                        className={linkStyle}
-                                        variants={linkSlideHover}
-                                    >
-                                        {link}
-                                    </motion.a>
+                        <ul className="space-y-4">
+                            {quickLinks.map((link, index) => (
+                                <motion.li key={index} whileHover="hover">
+                                    <Link to={link.path}>
+                                        <motion.span className={linkStyle} variants={linkSlideHover}>
+                                            {link.name}
+                                        </motion.span>
+                                    </Link>
                                 </motion.li>
                             ))}
-                        </motion.ul>
+                        </ul>
                     </motion.div>
 
-                    {/* 2.3. Resources (with Slide Animation) */}
+                    {/* Resources */}
                     <motion.div variants={itemVariants}>
                         <h3 className={headerStyle}>Resources</h3>
-                        <motion.ul className="space-y-4">
-                            {['Blog', 'Study Tips', 'FAQ', 'Support Center', 'Documentation'].map((link, index) => (
-                                <motion.li
-                                    key={index}
-                                    variants={itemVariants}
-                                    whileHover="hover"
-                                >
-                                    <motion.a
-                                        href="#"
-                                        className={linkStyle}
-                                        variants={linkSlideHover}
-                                    >
-                                        {link}
-                                    </motion.a>
+                        <ul className="space-y-4">
+                            {resources.map((link, index) => (
+                                <motion.li key={index} whileHover="hover">
+                                    <Link to={link.path}>
+                                        <motion.span className={linkStyle} variants={linkSlideHover}>
+                                            {link.name}
+                                        </motion.span>
+                                    </Link>
                                 </motion.li>
                             ))}
-                        </motion.ul>
+                        </ul>
                     </motion.div>
 
-                    {/* 2.4. Contact Us */}
+                    {/* Contact Us */}
                     <motion.div variants={itemVariants}>
                         <h3 className={headerStyle}>Contact Us</h3>
                         <div className="space-y-5">
@@ -150,24 +154,17 @@ const Footer = () => {
                     </motion.div>
                 </div>
 
-                {/* Bottom Bar (Copyright & Legal Links) */}
-                <div className="w-full border-t border-gray-700 py-6">
-                    <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mb-3 md:mb-0">
-                            &copy; 2026 AI Powered Customers Complain Management. All rights reserved. Made with <span role="img" aria-label="love" className="text-red-500">❤️</span> in Bangladesh
-                        </motion.p>
+                {/* Bottom Bar */}
+                <div className="w-full border-t border-gray-800 py-6">
+                    <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 text-center md:text-left">
+                        <p className="mb-3 md:mb-0">
+                            &copy; 2026 AI Powered Management. All rights reserved. Made with <span className="text-red-500">❤️</span> in Bangladesh
+                        </p>
                         <div className="flex space-x-6">
-                            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((text, index) => (
-                                <motion.a
-                                    key={index}
-                                    href="#"
-                                    className="hover:text-green-400 transition duration-300"
-                                    initial={{ opacity: 0, x: 10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.7 + index * 0.1 }}
-                                >
-                                    {text}
-                                </motion.a>
+                            {legalLinks.map((link, index) => (
+                                <Link key={index} to={link.path} className="hover:text-green-400 transition duration-300">
+                                    {link.name}
+                                </Link>
                             ))}
                         </div>
                     </div>

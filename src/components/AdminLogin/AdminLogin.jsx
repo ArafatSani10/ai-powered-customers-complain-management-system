@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Lottie from 'react-lottie-player';
-import lottieLogin from "../../../../public/lottie/chatbot.json";
+import lottieLoginAdmin from "../../../public/lottie/ai paper generator.json";
 
 import { motion } from "framer-motion"
 import { Link } from 'react-router-dom';
@@ -102,7 +102,7 @@ const LoadingSkeleton = () => (
     </div>
 );
 
-export default function ModernLogin() {
+export default function AdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -132,8 +132,7 @@ export default function ModernLogin() {
             label: 'Google',
             bg: 'bg-white hover:bg-gray-50',
             text: 'text-gray-700'
-        },
-
+        }
     ];
 
 
@@ -179,7 +178,7 @@ export default function ModernLogin() {
                                 transition={{ duration: 0.6 }}
                             >
                                 <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                                    Sign in to your
+                                    Sign in to Admin
                                 </span>{' '}
                                 account
                             </motion.h2>
@@ -197,7 +196,7 @@ export default function ModernLogin() {
                             <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-white/10 to-transparent border border-gray-200/20 dark:border-gray-700/20 backdrop-blur-sm">
                                 <Lottie
                                     loop
-                                    animationData={lottieLogin}
+                                    animationData={lottieLoginAdmin}
                                     play
                                     speed={0.8}
                                     className="w-full h-auto"
@@ -226,7 +225,7 @@ export default function ModernLogin() {
                         </div>
 
                         {/* Social Login Buttons */}
-                        <div className="flex items-center justify-center gap-3 mb-8">
+                        <div className="justify-center flex items-center  gap-3 mb-8">
                             {socialButtons.map((item, index) => (
                                 <button
                                     key={index}
@@ -356,17 +355,7 @@ export default function ModernLogin() {
                             </button>
                         </form>
 
-                        {/* Footer */}
-                        <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800">
-                            <p className="text-center text-gray-600 dark:text-gray-400">
-                                Don't have an account?{' '}
-                                <Link to="/register">
-                                    <span className="font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors">
-                                        Sign up for free
-                                    </span>
-                                </Link>
-                            </p>
-                        </div>
+
                     </div>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 
+
+
 const OurTeam = () => {
     const [loading, setLoading] = useState(true);
     const [imagesLoaded, setImagesLoaded] = useState(0);
@@ -25,78 +27,30 @@ const OurTeam = () => {
         });
     };
 
-    const teamMembers = [
+const teamMembers = [
         {
             id: 1,
-            name: "Alex Johnson",
-            role: "AI Solutions Architect",
+            name: "Md.Nazmus Sakib",
+            role: "AI Engineer",
             description: "10+ years experience in machine learning and natural language processing. Leads our AI algorithm development team.",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#",
-                github: "#"
-            }
+            image: "/assest/606444496_1595860561549812_74939189206405028_n.jpg",
+            social: { linkedin: "#", twitter: "#", github: "#" }
         },
         {
             id: 2,
-            name: "Sarah Williams",
-            role: "Customer Experience Director",
-            description: "Expert in customer service optimization and complaint management systems. Former CX lead at Fortune 500 companies.",
-            image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#",
-                dribbble: "#"
-            }
+            name: "Fatema Busra",
+            role: "Full Stack developer",
+            description: "Expert in building scalable web applications and managing complex database architectures with modern technologies.",
+            image: "/assest/612311144_877927461485628_1861705898028350542_n.jpg",
+            social: { linkedin: "#", twitter: "#", dribbble: "#" }
         },
         {
             id: 3,
-            name: "Michael Chen",
+            name: "Tonoya Ruku",
             role: "Senior Data Scientist",
-            description: "Specializes in predictive analytics and sentiment analysis. PhD in Computer Science from Stanford University.",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#",
-                github: "#"
-            }
-        },
-        {
-            id: 4,
-            name: "Emma Davis",
-            role: "UX/UI Design Lead",
-            description: "Creates intuitive interfaces for complex AI systems. Award-winning designer with focus on user-centered design.",
-            image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#",
-                dribbble: "#"
-            }
-        },
-        {
-            id: 5,
-            name: "David Rodriguez",
-            role: "Backend Engineering Lead",
-            description: "Architects scalable backend systems for real-time complaint processing. Expert in microservices and cloud infrastructure.",
-            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#",
-                github: "#"
-            }
-        },
-        {
-            id: 6,
-            name: "Lisa Thompson",
-            role: "Product Manager",
-            description: "Drives product vision and strategy. Bridges gap between technical teams and customer needs with 8+ years experience.",
-            image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            social: {
-                linkedin: "#",
-                twitter: "#",
-                medium: "#"
-            }
+            description: "Specializes in data visualization and predictive modeling to turn complex data into actionable business insights.",
+            image: "/assest/614146790_2350580272126388_7845677073929349562_n.png",
+            social: { linkedin: "#", twitter: "#", github: "#" }
         }
     ];
 

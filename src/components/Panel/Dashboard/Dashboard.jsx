@@ -190,7 +190,7 @@ const Dashboard = () => {
                                 <RiRobot2Line className="text-[#3b82f6] text-2xl" />
                             </div>
                             <span className="text-2xl font-bold tracking-tight text-white">
-                                ROBO<span className="text-[#3b82f6]">DASH</span>
+                                AI-<span className="text-[#3b82f6]">Powered</span>
                             </span>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ import Register from './components/pages/Register/Register.jsx';
 import HelpDesk from './components/pages/HelpDesk/HelpDesk.jsx';
 import Dashboard from './components/Panel/Dashboard/Dashboard.jsx';
 import AdminHome from './components/Panel/Dashboard/AdminHome/AdminHome.jsx';
+import AdminLogin from './components/AdminLogin/AdminLogin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -56,9 +57,16 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register></Register>
       },
+
+      {
+        path: '/admin-login',
+        element: <AdminLogin></AdminLogin>
+      },
     ]
   },
 
+
+  // panel routes
   {
     path: 'dashboard',
     element: <Dashboard></Dashboard>,
