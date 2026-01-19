@@ -62,7 +62,7 @@ const Footer = () => {
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pb-16 pt-8">
-                    
+
                     {/* Logo and Description */}
                     <motion.div variants={itemVariants} className="col-span-2 md:col-span-1">
                         <Link to="/" className="flex items-center mb-6">
