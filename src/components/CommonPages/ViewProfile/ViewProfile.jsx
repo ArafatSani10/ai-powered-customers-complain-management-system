@@ -28,6 +28,7 @@ import {
     HiOutlineUserCircle,
     HiOutlineStatusOnline
 } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -86,8 +87,8 @@ const ViewProfile = () => {
     // Loading Skeleton
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 py-12 px-4">
-                <div className="max-w-6xl mx-auto">
+            <div className="min-h-screen bg-transparent py-12 px-4">
+                <div className="max-w-7xl mx-auto">
                     {/* Header Skeleton */}
                     <div className="mb-8">
                         <div className="h-8 bg-gray-800 rounded w-64 mx-auto mb-4 animate-pulse"></div>
@@ -108,29 +109,8 @@ const ViewProfile = () => {
                             <div className="h-8 bg-gray-700 rounded w-64 mx-auto mb-4"></div>
                             <div className="h-4 bg-gray-700 rounded w-48 mx-auto mb-12"></div>
 
-                            {/* Stats Skeleton */}
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                                {[...Array(4)].map((_, i) => (
-                                    <div key={i} className="bg-gray-800/50 rounded-xl p-6">
-                                        <div className="h-6 bg-gray-700 rounded w-24 mb-4"></div>
-                                        <div className="h-4 bg-gray-700 rounded w-16"></div>
-                                    </div>
-                                ))}
-                            </div>
 
-                            {/* Info Cards Skeleton */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {[...Array(4)].map((_, i) => (
-                                    <div key={i} className="bg-gray-800/50 rounded-xl p-6">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="h-10 w-10 bg-gray-700 rounded-full"></div>
-                                            <div className="h-4 bg-gray-700 rounded w-32"></div>
-                                        </div>
-                                        <div className="h-3 bg-gray-700 rounded w-full mb-2"></div>
-                                        <div className="h-3 bg-gray-700 rounded w-3/4"></div>
-                                    </div>
-                                ))}
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -163,7 +143,7 @@ const ViewProfile = () => {
 
     // Main Profile View
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 py-12 px-4">
+        <div className="min-h-screen bg-transparent py-16 px-4">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <motion.div
@@ -171,7 +151,7 @@ const ViewProfile = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-12"
                 >
-                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
+                    <h1 className="text-2xl md:text-4xl mt-10 font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
                         {user.role} Profile
                     </h1>
                     <p className="text-gray-400 text-lg">
@@ -197,8 +177,7 @@ const ViewProfile = () => {
                                 <motion.img
                                     src={user.image || "https://via.placeholder.com/150"}
                                     alt={user.name}
-                                    className="w-32 h-32 rounded-full border-4 border-gray-900 shadow-2xl object-cover"
-                                    whileHover={{ scale: 1.05 }}
+                                    className="w-48 h-48 rounded-full border-4 border-gray-900  object-cover"
                                     transition={{ type: "spring", stiffness: 300 }}
                                 />
                                 {/* Online Status */}
@@ -231,38 +210,8 @@ const ViewProfile = () => {
                         </div>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                            {/* Account Age */}
-                            <motion.div
-                                className="bg-gray-900/50 rounded-2xl p-6 border border-gray-700/50"
-                                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="p-3 bg-blue-500/20 rounded-xl">
-                                        <IoCalendarOutline className="text-2xl text-blue-400" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-400 text-sm">Member Since</p>
-                                        <p className="text-white font-bold">{new Date(user.createdAt).toLocaleDateString()}</p>
-                                    </div>
-                                </div>
-                            </motion.div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
-                            {/* Last Login */}
-                            <motion.div
-                                className="bg-gray-900/50 rounded-2xl p-6 border border-gray-700/50"
-                                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="p-3 bg-green-500/20 rounded-xl">
-                                        <IoTimeOutline className="text-2xl text-green-400" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-400 text-sm">Last Login</p>
-                                        <p className="text-white font-bold">{formatDate(user.last_login_at)}</p>
-                                    </div>
-                                </div>
-                            </motion.div>
 
                             {/* Account Status */}
                             <motion.div
@@ -337,56 +286,11 @@ const ViewProfile = () => {
                                             </div>
                                         </div>
 
-                                        {/* Email */}
-                                        <div className="flex items-center gap-4 p-3 bg-gray-800/30 rounded-xl hover:bg-gray-700/30 transition-colors">
-                                            <MdOutlineEmail className="text-2xl text-purple-400" />
-                                            <div className="flex-1">
-                                                <p className="text-gray-400 text-sm">Email Address</p>
-                                                <p className="text-white font-medium">
-                                                    {user.email || "Not provided"}
-                                                </p>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
 
-                                {/* Account Settings Card */}
-                                <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 rounded-2xl p-6 border border-gray-700/50">
-                                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                        <div className="p-2 bg-purple-500/20 rounded-lg">
-                                            <MdOutlineSecurity className="text-purple-400" />
-                                        </div>
-                                        Account Settings
-                                    </h3>
 
-                                    <div className="space-y-4">
-                                        <button className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl hover:from-blue-600/30 hover:to-purple-600/30 transition-all group">
-                                            <div className="flex items-center gap-3">
-                                                <IoKeyOutline className="text-xl text-blue-400" />
-                                                <div className="text-left">
-                                                    <p className="text-white font-medium">Change Password</p>
-                                                    <p className="text-gray-400 text-sm">Update your security credentials</p>
-                                                </div>
-                                            </div>
-                                            <div className="text-gray-400 group-hover:text-white transition-colors">
-                                                →
-                                            </div>
-                                        </button>
-
-                                        <button className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-green-600/20 to-blue-600/20 rounded-xl hover:from-green-600/30 hover:to-blue-600/30 transition-all group">
-                                            <div className="flex items-center gap-3">
-                                                <MdOutlineUpdate className="text-xl text-green-400" />
-                                                <div className="text-left">
-                                                    <p className="text-white font-medium">Update Profile</p>
-                                                    <p className="text-gray-400 text-sm">Edit your personal information</p>
-                                                </div>
-                                            </div>
-                                            <div className="text-gray-400 group-hover:text-white transition-colors">
-                                                →
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
                             </motion.div>
 
                             {/* Right Column */}
@@ -407,40 +311,7 @@ const ViewProfile = () => {
 
                                     <div className="space-y-4">
                                         {/* Role */}
-                                        <div className="flex items-center gap-4 p-3 bg-gray-800/30 rounded-xl">
-                                            <FaUserShield className="text-2xl text-green-400" />
-                                            <div className="flex-1">
-                                                <p className="text-gray-400 text-sm">Account Role</p>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-white font-medium capitalize">{user.role}</span>
-                                                    {user.role === 'customer' && (
-                                                        <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
-                                                            Verified User
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        {/* Status */}
-                                        <div className="flex items-center gap-4 p-3 bg-gray-800/30 rounded-xl">
-                                            {user.status === 'active' ? (
-                                                <FaUserCheck className="text-2xl text-green-400" />
-                                            ) : (
-                                                <FaUserClock className="text-2xl text-red-400" />
-                                            )}
-                                            <div className="flex-1">
-                                                <p className="text-gray-400 text-sm">Account Status</p>
-                                                <div className="flex items-center gap-2">
-                                                    <span className={`text-white font-medium capitalize ${user.status === 'active' ? 'text-green-400' : 'text-red-400'}`}>
-                                                        {user.status}
-                                                    </span>
-                                                    {user.status === 'active' && (
-                                                        <IoCheckmarkCircle className="text-green-400" />
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         {/* Created Date */}
                                         <div className="flex items-center gap-4 p-3 bg-gray-800/30 rounded-xl">
@@ -462,82 +333,29 @@ const ViewProfile = () => {
                                     </div>
                                 </div>
 
-                                {/* Security Status Card */}
-                                <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 rounded-2xl p-6 border border-gray-700/50">
-                                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                        <div className="p-2 bg-red-500/20 rounded-lg">
-                                            <MdOutlineSecurity className="text-red-400" />
-                                        </div>
-                                        Security Status
-                                    </h3>
 
-                                    <div className="space-y-4">
-                                        <div className="space-y-2">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-gray-300">Account Protection</span>
-                                                <span className="text-green-400 font-semibold flex items-center gap-1">
-                                                    <IoCheckmarkCircleOutline /> Active
-                                                </span>
-                                            </div>
-                                            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                                <div className="h-full w-full bg-gradient-to-r from-green-500 to-blue-500"></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-gray-300">Profile Completeness</span>
-                                                <span className="text-blue-400 font-semibold">80%</span>
-                                            </div>
-                                            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                                <div className="h-full w-4/5 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="pt-4 border-t border-gray-700/50">
-                                            <div className="flex items-center justify-between text-sm">
-                                                <span className="text-gray-400">Last Security Check</span>
-                                                <span className="text-white">{new Date().toLocaleDateString()}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </motion.div>
                         </div>
 
                         {/* Action Buttons */}
+                        <Link to="/update-profile">
                         <motion.div
-                            className="flex flex-wrap gap-4 justify-center mt-12"
+                            className="flex  mt-12"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
-                            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-blue-500/30 transition-all flex items-center gap-2">
+                            <button className="px-8 py-3 bg-[#2f5499] text-white rounded-xl  flex items-center gap-2">
                                 <HiOutlineUserCircle className="text-lg" />
-                                Edit Profile
+                                Update Your Profile
                             </button>
-                            <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-500/30 transition-all flex items-center gap-2">
-                                <IoKeyOutline className="text-lg" />
-                                Change Password
-                            </button>
-                            <button className="px-8 py-3 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-gray-500/30 transition-all flex items-center gap-2 border border-gray-600">
-                                <IoTimeOutline className="text-lg" />
-                                View Activity Log
-                            </button>
+
                         </motion.div>
+                        </Link>
                     </div>
                 </motion.div>
 
-                {/* Footer Note */}
-                <motion.div
-                    className="text-center mt-8 text-gray-500 text-sm"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
-                >
-                    <p>Profile last updated: {formatDate(user.updatedAt)}</p>
-                    <p className="mt-2">For security reasons, never share your credentials with anyone</p>
-                </motion.div>
+
             </div>
         </div>
     );

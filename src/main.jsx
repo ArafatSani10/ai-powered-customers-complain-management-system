@@ -18,6 +18,7 @@ import Dashboard from './components/Panel/Dashboard/Dashboard.jsx';
 import AdminHome from './components/Panel/Dashboard/AdminHome/AdminHome.jsx';
 import AdminLogin from './components/AdminLogin/AdminLogin.jsx';
 import ViewProfile from './components/CommonPages/ViewProfile/ViewProfile.jsx';
+import UpdateProfile from './components/CommonPages/UpdateProfile/UpdateProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
       {
         path: '/view-profile',
         element: <ViewProfile></ViewProfile>
+      },
+
+      {
+        path:"/update-profile",
+        element:<UpdateProfile></UpdateProfile>
       },
     ]
   },
