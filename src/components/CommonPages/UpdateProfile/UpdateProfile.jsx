@@ -173,7 +173,7 @@ const UpdateProfile = () => {
     // Loading skeleton
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex items-center justify-center">
+            <div className="min-h-screen bg-transparent flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-white">Loading profile data...</p>
@@ -397,12 +397,7 @@ const UpdateProfile = () => {
                     </motion.div>
                 )}
 
-                {/* API Info (for debugging) */}
-                <div className="mt-8 text-center">
-                    <p className="text-gray-600 text-xs">
-                        API Endpoint: {API_URL}/user/update
-                    </p>
-                </div>
+               
             </div>
         </div>
     );

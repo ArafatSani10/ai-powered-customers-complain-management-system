@@ -8,6 +8,7 @@ import logo from "../../../../../public/logo/download.png"
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { MdOutlineContactSupport, MdPolicy } from 'react-icons/md';
 import { SiHelpdesk } from 'react-icons/si';
+import { FaDashcube } from 'react-icons/fa';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +24,17 @@ const Navbar = () => {
 
     const API_URL = import.meta.env.VITE_API_URL;
 
+    // --- Optimized Auth Logic ---
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        const savedUser = localStorage.getItem("user");
+
+        // 1. Prothomei jodi local-e data thake oita show korbe (No flickering)
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+        }
+
         const fetchUserData = async () => {
-            const token = localStorage.getItem("token");
             if (token && API_URL) {
                 try {
                     const res = await axios.get(`${API_URL}/user/auth`, {
@@ -35,12 +44,16 @@ const Navbar = () => {
                         }
                     });
                     if (res.data.success) {
-                        setUser(res.data.data);
+                        const freshData = res.data.data;
+                        setUser(freshData);
+                        // 2. Data fetch houar por local storage update kore nibe
+                        localStorage.setItem("user", JSON.stringify(freshData));
                     }
                 } catch (err) {
                     console.error("Auth error:", err);
-                    localStorage.removeItem("token");
-                    setUser(null);
+                    if (err.response?.status === 401) {
+                        handleLogout();
+                    }
                 }
             }
         };
@@ -57,7 +70,9 @@ const Navbar = () => {
         } catch (err) {
             console.error("Logout error:", err);
         } finally {
+            // Clear everything
             localStorage.removeItem("token");
+            localStorage.removeItem("user");
             setUser(null);
             setShowUserDropdown(false);
             navigate("/login");
@@ -152,9 +167,8 @@ const Navbar = () => {
                     </div>
 
                     {/* Desktop Buttons & User Profile */}
-                    <div className='hidden md:flex items-center space-x-3'>
+                    <div className='hidden md:flex items-center space-x-5'>
                         {user ? (
-                            /* User Profile Dropdown */
                             <div className="relative" ref={dropdownRef}>
                                 <motion.div
                                     className="flex items-center cursor-pointer"
@@ -169,19 +183,16 @@ const Navbar = () => {
                                         />
                                         <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#00091a]"></div>
                                     </div>
-                                    {/* <IoChevronDown className={`ml-2 text-white transition-transform duration-300 ${showUserDropdown ? 'rotate-180' : ''}`} /> */}
                                 </motion.div>
 
-                                {/* Dropdown Menu */}
                                 <AnimatePresence>
                                     {showUserDropdown && (
                                         <motion.div
                                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className="absolute right-0 mt-3 w-48 bg-[#0a1124] border border-gray-700 rounded-xl shadow-2xl shadow-black/50 overflow-hidden z-50"
+                                            className="absolute right-0 mt-3 w-64 bg-[#0a1124] border border-gray-700 rounded-lg shadow-2xl shadow-black/50 overflow-hidden z-50"
                                         >
-                                            {/* User Info */}
                                             <div className="p-4 border-b border-gray-800 bg-gray-900/50">
                                                 <div className="flex items-center gap-3">
                                                     <img
@@ -191,25 +202,21 @@ const Navbar = () => {
                                                     />
                                                     <div>
                                                         <h3 className="text-white font-bold text-sm">{user.name}</h3>
-                                                        <p className="text-gray-400 text-xs">{user.role}</p>
+                                                        <p className="text-gray-400 text-xs">{user.role || 'Student'}</p>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {/* Menu Items */}
                                             <div className="py-2">
-                                                <Link
-                                                    to="/view-profile"
-                                                    onClick={() => setShowUserDropdown(false)}
-                                                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all"
-                                                >
+                                                <Link to="/view-profile" onClick={() => setShowUserDropdown(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all">
                                                     <IoPersonOutline className="text-lg" />
                                                     <span>View Profile</span>
                                                 </Link>
-                                                <button
-                                                    onClick={handleLogout}
-                                                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all"
-                                                >
+                                                <Link to="/dashboard" onClick={() => setShowUserDropdown(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all">
+                                                    <FaDashcube className="text-lg" />
+                                                    <span>Dashboard</span>
+                                                </Link>
+                                                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all">
                                                     <IoLogOutOutline className="text-lg" />
                                                     <span>Logout</span>
                                                 </button>
@@ -219,23 +226,14 @@ const Navbar = () => {
                                 </AnimatePresence>
                             </div>
                         ) : (
-                            /* Login & Register Buttons */
                             <>
                                 <Link to="/login">
-                                    <motion.button
-                                        className='px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-300'
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
+                                    <motion.button className='px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-lg shadow-blue-500/20' whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                         Login
                                     </motion.button>
                                 </Link>
                                 <Link to="/register">
-                                    <motion.button
-                                        className='px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow-lg shadow-green-500/20 hover:shadow-green-500/40 transition-all duration-300'
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
+                                    <motion.button className='px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow-lg shadow-green-500/20' whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                         Register
                                     </motion.button>
                                 </Link>
@@ -243,95 +241,46 @@ const Navbar = () => {
                         )}
                     </div>
 
-                    {/* Mobile View - User Profile & Menu Button */}
+                    {/* Mobile View */}
                     <div className='md:hidden flex items-center space-x-3'>
                         {user ? (
-                            /* Mobile User Profile Dropdown */
                             <div className="relative" ref={dropdownRef}>
-                                <motion.div
-                                    className="flex items-center cursor-pointer"
-                                    onClick={() => setShowUserDropdown(!showUserDropdown)}
-                                    whileHover={{ scale: 1.05 }}
-                                >
+                                <motion.div className="flex items-center cursor-pointer" onClick={() => setShowUserDropdown(!showUserDropdown)}>
                                     <div className="relative">
-                                        <img
-                                            src={user.image || "https://via.placeholder.com/36"}
-                                            alt={user.name}
-                                            className="w-9 h-9 rounded-full border-2 border-blue-500 object-cover shadow-md"
-                                        />
+                                        <img src={user.image || "https://via.placeholder.com/36"} alt={user.name} className="w-9 h-9 rounded-full border-2 border-blue-500 object-cover shadow-md" />
                                         <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-[#00091a]"></div>
                                     </div>
                                     <IoChevronDown className={`ml-1 text-white transition-transform duration-300 ${showUserDropdown ? 'rotate-180' : ''}`} />
                                 </motion.div>
-
-                                {/* Mobile Dropdown Menu */}
+                                {/* Mobile User Dropdown Logic... Same as Desktop */}
                                 <AnimatePresence>
                                     {showUserDropdown && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className="absolute right-0 mt-3 w-48 bg-[#0a1124] border border-gray-700 rounded-xl shadow-2xl shadow-black/50 overflow-hidden z-50"
-                                        >
-                                            {/* User Info */}
+                                        <motion.div initial={{ opacity: 0, y: 10, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.95 }} className="absolute right-0 mt-3 w-64 bg-[#0a1124] border border-gray-700 rounded-lg shadow-2xl z-50">
                                             <div className="p-4 border-b border-gray-800 bg-gray-900/50">
                                                 <div className="flex items-center gap-3">
-                                                    <img
-                                                        src={user.image || "https://via.placeholder.com/40"}
-                                                        alt={user.name}
-                                                        className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover"
-                                                    />
+                                                    <img src={user.image || "https://via.placeholder.com/40"} className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover" />
                                                     <div>
                                                         <h3 className="text-white font-bold text-sm">{user.name}</h3>
-                                                        <p className="text-gray-400 text-xs">{user.role}</p>
+                                                        <p className="text-gray-400 text-xs">{user.role || 'Student'}</p>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            {/* Menu Items */}
                                             <div className="py-2">
-                                                <Link
-                                                    to="/view-profile"
-                                                    onClick={() => {
-                                                        setShowUserDropdown(false);
-                                                        setIsOpen(false);
-                                                    }}
-                                                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all"
-                                                >
-                                                    <IoPersonOutline className="text-lg" />
-                                                    <span>View Profile</span>
-                                                </Link>
-                                                <button
-                                                    onClick={handleLogout}
-                                                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all"
-                                                >
-                                                    <IoLogOutOutline className="text-lg" />
-                                                    <span>Logout</span>
-                                                </button>
+                                                <Link to="/view-profile" onClick={() => {setShowUserDropdown(false); setIsOpen(false)}} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 transition-all"><IoPersonOutline /> View Profile</Link>
+                                                <Link to="/dashboard" onClick={() => {setShowUserDropdown(false); setIsOpen(false)}} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 transition-all"><FaDashcube /> Dashboard</Link>
+                                                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition-all"><IoLogOutOutline /> Logout</button>
                                             </div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
                             </div>
                         ) : (
-                            /* Mobile Login Button (Only visible when user not logged in) */
                             <Link to="/login" className="md:hidden">
-                                <motion.button
-                                    className='px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-lg shadow-blue-500/20 text-sm'
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    Login
-                                </motion.button>
+                                <motion.button className='px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm shadow-lg'>Login</motion.button>
                             </Link>
                         )}
 
-                        {/* Mobile Menu Button */}
-                        <motion.button
-                            className='text-white p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors'
-                            onClick={toggleMenu}
-                            whileTap={{ scale: 0.9 }}
-                        >
+                        <motion.button className='text-white p-2 rounded-lg bg-gray-800/50' onClick={toggleMenu} whileTap={{ scale: 0.9 }}>
                             {isOpen ? <IoClose size={24} /> : <CiMenuFries size={24} />}
                         </motion.button>
                     </div>
@@ -340,48 +289,19 @@ const Navbar = () => {
                 {/* Mobile Navigation Menu */}
                 <AnimatePresence>
                     {isOpen && (
-                        <motion.div
-                            className='md:hidden bg-[#0a1124]/95 backdrop-blur-lg border-t border-gray-800/50'
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                        >
+                        <motion.div className='md:hidden bg-[#0a1124]/95 backdrop-blur-lg border-t border-gray-800/50' initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
                             <div className='py-4 space-y-1 px-2'>
                                 {navItems.map((item, index) => (
-                                    <motion.div
-                                        key={item.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.05 }}
-                                    >
-                                        <Link
-                                            to={item.to}
-                                            className={`flex items-center gap-3 px-4 py-3 rounded-lg ${isActiveLink(item.to) ? 'text-[#00baff] bg-blue-500/10' : 'text-white hover:bg-gray-800/50'}`}
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            <item.icon className='text-xl' />
-                                            <span>{item.name}</span>
+                                    <motion.div key={item.name} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}>
+                                        <Link to={item.to} className={`flex items-center gap-3 px-4 py-3 rounded-lg ${isActiveLink(item.to) ? 'text-[#00baff] bg-blue-500/10' : 'text-white hover:bg-gray-800/50'}`} onClick={() => setIsOpen(false)}>
+                                            <item.icon className='text-xl' /> <span>{item.name}</span>
                                         </Link>
                                     </motion.div>
                                 ))}
-
-                                {/* Mobile Menu Buttons (only show when user not logged in) */}
                                 {!user && (
                                     <div className='pt-4 border-t border-gray-800 mt-2 space-y-3 px-2'>
-                                        <Link
-                                            to="/login"
-                                            onClick={() => setIsOpen(false)}
-                                            className="block w-full p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-center rounded-lg font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all"
-                                        >
-                                            Login
-                                        </Link>
-                                        <Link
-                                            to="/register"
-                                            onClick={() => setIsOpen(false)}
-                                            className="block w-full p-3 bg-gradient-to-r from-green-500 to-green-600 text-white text-center rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/30 transition-all"
-                                        >
-                                            Register
-                                        </Link>
+                                        <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-center rounded-lg font-bold">Login</Link>
+                                        <Link to="/register" onClick={() => setIsOpen(false)} className="block w-full p-3 bg-gradient-to-r from-green-500 to-green-600 text-white text-center rounded-lg font-bold">Register</Link>
                                     </div>
                                 )}
                             </div>

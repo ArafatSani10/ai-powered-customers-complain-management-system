@@ -129,7 +129,7 @@ const ViewProfile = () => {
                 >
                     <div className="text-red-400 text-5xl mb-4">⚠️</div>
                     <h2 className="text-2xl font-bold text-white mb-2">Error</h2>
-                    <p className="text-gray-300 mb-6">{error}</p>
+                    <p className="text-gray-300 mb-6"> Please connect you network.</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all"
@@ -326,7 +326,7 @@ const ViewProfile = () => {
                                         <div className="flex items-center gap-4 p-3 bg-gray-800/30 rounded-xl">
                                             <IoTimeOutline className="text-2xl text-purple-400" />
                                             <div className="flex-1">
-                                                <p className="text-gray-400 text-sm">Last Updated</p>
+                                                <p className="text-gray-400 text-sm">Last Updated or Sign in</p>
                                                 <p className="text-white font-medium">{formatDate(user.updatedAt)}</p>
                                             </div>
                                         </div>

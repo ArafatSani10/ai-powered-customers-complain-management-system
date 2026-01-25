@@ -47,7 +47,7 @@ const HelpDeskBanner = () => {
                         <span className="text-[10px] text-slate-300 uppercase tracking-[0.2em] font-bold">Support System</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
                         How can we <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400">help you?</span>
                     </h1>
                     
