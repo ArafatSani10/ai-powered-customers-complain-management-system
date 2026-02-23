@@ -331,7 +331,7 @@ export default function ModernRegister() {
                                             onChange={handleInputChange}
                                             onFocus={() => setIsFocused(prev => ({ ...prev, phone_number: true }))}
                                             onBlur={() => setIsFocused(prev => ({ ...prev, phone_number: false }))}
-                                            placeholder="01963888482"
+                                            placeholder="xxxxxxxxx"
                                             required
                                             disabled={isLoading}
                                             className="w-full h-14 px-5 pl-12 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-emerald-500 dark:focus:border-emerald-500 transition-all duration-300 disabled:opacity-50"

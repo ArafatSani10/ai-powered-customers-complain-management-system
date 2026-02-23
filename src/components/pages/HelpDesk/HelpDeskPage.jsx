@@ -11,7 +11,6 @@ const HelpDeskPage = () => {
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
-        // console.log("Current User from Storage:", storedUser); 
         setUser(storedUser);
     }, []);
 

@@ -49,7 +49,6 @@ const CreatePost = ({ isOpen, onClose }) => {
     const fileInputRef = useRef(null);
     const descriptionValue = watch("description");
 
-    // Outside Click হ্যান্ডেল করার লজিক (সাজেশন বক্স বন্ধ করতে)
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (suggestionRef.current && !suggestionRef.current.contains(event.target)) {
@@ -60,7 +59,6 @@ const CreatePost = ({ isOpen, onClose }) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // মোডাল ওপেন থাকলে পেজ স্ক্রল বন্ধ রাখা
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -149,7 +147,6 @@ const CreatePost = ({ isOpen, onClose }) => {
                                 </div>
                             </div>
 
-                            {/* Keywords with Outside Click Support */}
                             <div className="space-y-1 relative" ref={suggestionRef}>
                                 <label className="text-gray-400 text-sm ml-1">Keywords (Min 4, Max 9)</label>
                                 <div className="relative">

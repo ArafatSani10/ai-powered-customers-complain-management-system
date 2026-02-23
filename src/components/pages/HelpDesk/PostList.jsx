@@ -37,7 +37,7 @@ const PostList = ({ currentUser }) => {
     const [postType, setPostType] = useState('');
     const [page, setPage] = useState(1);
     const [meta, setMeta] = useState({ totalPage: 1 });
-    
+
     const [selectedPostId, setSelectedPostId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -163,6 +163,10 @@ const PostList = ({ currentUser }) => {
                                     <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
                                         {post.shortDescription}
                                     </p>
+
+
+
+
                                 </div>
 
                                 <div className="mt-6 pt-4 border-t border-white/5 flex justify-between items-center">
@@ -207,11 +211,11 @@ const PostList = ({ currentUser }) => {
                 </button>
             </div>
 
-            <PostDetailsModal 
-                isOpen={isModalOpen} 
-                onClose={() => setIsModalOpen(false)} 
-                postId={selectedPostId} 
-                currentUser={currentUser} 
+            <PostDetailsModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                postId={selectedPostId}
+                currentUser={currentUser}
             />
         </div>
     );
