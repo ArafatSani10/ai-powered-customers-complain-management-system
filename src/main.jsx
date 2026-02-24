@@ -19,6 +19,11 @@ import AdminHome from './components/Panel/Dashboard/AdminHome/AdminHome.jsx';
 import AdminLogin from './components/AdminLogin/AdminLogin.jsx';
 import ViewProfile from './components/CommonPages/ViewProfile/ViewProfile.jsx';
 import UpdateProfile from './components/CommonPages/UpdateProfile/UpdateProfile.jsx';
+import NotFound from './layout/NotFound/NotFound.jsx';
+import PrivateRoute from './layout/PrivateRoute/PrivateRoute.jsx';
+import AuthProvider from './context/AuthProvider.jsx';
+import AllUsers from './components/Panel/Dashboard/AllUsers/AllUsers.jsx';
+import Analytics from './components/Panel/Dashboard/Analytics/Analytics.jsx';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +52,9 @@ const router = createBrowserRouter([
 
       {
         path: '/help-desk',
-        element: <HelpDesk></HelpDesk>
+        element:
+          <HelpDesk></HelpDesk>
+
       },
 
       {
@@ -74,6 +81,11 @@ const router = createBrowserRouter([
         path: "/update-profile",
         element: <UpdateProfile></UpdateProfile>
       },
+
+      {
+        path: '*',
+        element: <NotFound></NotFound>
+      },
     ]
   },
 
@@ -86,6 +98,17 @@ const router = createBrowserRouter([
       {
         path: 'admin-home',
         element: <AdminHome></AdminHome>
+      },
+
+
+      {
+        path: 'users',
+        element: <AllUsers></AllUsers>
+      },
+
+      {
+        path:'analytics',
+        element:<Analytics></Analytics>
       }
     ]
   },
@@ -95,6 +118,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

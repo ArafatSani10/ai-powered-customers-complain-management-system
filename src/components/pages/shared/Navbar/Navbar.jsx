@@ -24,12 +24,10 @@ const Navbar = () => {
 
     const API_URL = import.meta.env.VITE_API_URL;
 
-    // --- Optimized Auth Logic ---
     useEffect(() => {
         const token = localStorage.getItem("token");
         const savedUser = localStorage.getItem("user");
 
-        // 1. Prothomei jodi local-e data thake oita show korbe (No flickering)
         if (savedUser) {
             setUser(JSON.parse(savedUser));
         }
@@ -46,7 +44,6 @@ const Navbar = () => {
                     if (res.data.success) {
                         const freshData = res.data.data;
                         setUser(freshData);
-                        // 2. Data fetch houar por local storage update kore nibe
                         localStorage.setItem("user", JSON.stringify(freshData));
                     }
                 } catch (err) {
@@ -70,7 +67,6 @@ const Navbar = () => {
         } catch (err) {
             console.error("Logout error:", err);
         } finally {
-            // Clear everything
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             setUser(null);
@@ -95,8 +91,8 @@ const Navbar = () => {
         { name: 'Home', to: '/', icon: IoHomeOutline },
         { name: 'About', to: '/about', icon: AiOutlineInfoCircle },
         { name: 'Terms & Conditions', to: '/terms-and-conditions', icon: MdPolicy },
-        { name: 'Contact Us ', to: '/contact-us', icon: MdOutlineContactSupport },
-        { name: 'Help Desk ', to: '/help-desk', icon: SiHelpdesk }
+        { name: 'Contact Us', to: '/contact-us', icon: MdOutlineContactSupport },
+        ...(user ? [{ name: 'Help Desk', to: '/help-desk', icon: SiHelpdesk }] : [])
     ];
 
     const isActiveLink = (path) => location.pathname === path;
@@ -139,14 +135,12 @@ const Navbar = () => {
         >
             <div className='max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex justify-between items-center py-3'>
-                    {/* Logo */}
                     <Link to="/" className='flex items-center'>
                         <motion.div className='w-32 h-10 bg-[#00091a] rounded-lg flex items-center justify-center mr-3' whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                             <img className='rounded-full' src={logo} alt="Logo" />
                         </motion.div>
                     </Link>
 
-                    {/* Desktop Menu */}
                     <div className='hidden md:flex items-center space-x-4'>
                         {navItems.map((item, index) => (
                             <motion.div key={item.name} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} whileHover={{ scale: 1.05 }}>
@@ -166,60 +160,31 @@ const Navbar = () => {
                         ))}
                     </div>
 
-                    {/* Desktop Buttons & User Profile */}
                     <div className='hidden md:flex items-center space-x-5'>
                         {user ? (
                             <div className="relative" ref={dropdownRef}>
-                                <motion.div
-                                    className="flex items-center cursor-pointer"
-                                    onClick={() => setShowUserDropdown(!showUserDropdown)}
-                                    whileHover={{ scale: 1.05 }}
-                                >
+                                <motion.div className="flex items-center cursor-pointer" onClick={() => setShowUserDropdown(!showUserDropdown)} whileHover={{ scale: 1.05 }}>
                                     <div className="relative">
-                                        <img
-                                            src={user.image || "https://via.placeholder.com/40"}
-                                            alt={user.name}
-                                            className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-md"
-                                        />
+                                        <img src={user.image || "https://via.placeholder.com/40"} alt={user.name} className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover shadow-md" />
                                         <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#00091a]"></div>
                                     </div>
                                 </motion.div>
-
                                 <AnimatePresence>
                                     {showUserDropdown && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className="absolute right-0 mt-3 w-64 bg-[#0a1124] border border-gray-700 rounded-lg shadow-2xl shadow-black/50 overflow-hidden z-50"
-                                        >
+                                        <motion.div initial={{ opacity: 0, y: 10, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.95 }} className="absolute right-0 mt-3 w-64 bg-[#0a1124] border border-gray-700 rounded-lg shadow-2xl z-50 overflow-hidden">
                                             <div className="p-4 border-b border-gray-800 bg-gray-900/50">
                                                 <div className="flex items-center gap-3">
-                                                    <img
-                                                        src={user.image || "https://via.placeholder.com/40"}
-                                                        alt={user.name}
-                                                        className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover"
-                                                    />
-                                                    <div>
-                                                        <h3 className="text-white font-bold text-sm">{user.name}</h3>
-                                                        <p className="text-gray-400 text-xs">{user.role || 'Student'}</p>
+                                                    <img src={user.image || "https://via.placeholder.com/40"} alt={user.name} className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover" />
+                                                    <div className="flex flex-col overflow-hidden">
+                                                        <h3 className="text-white font-bold text-sm truncate">{user.name}</h3>
+                                                        <p className="text-gray-400 text-xs truncate">{user.role || 'User'}</p>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div className="py-2">
-                                                <Link to="/view-profile" onClick={() => setShowUserDropdown(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all">
-                                                    <IoPersonOutline className="text-lg" />
-                                                    <span>View Profile</span>
-                                                </Link>
-                                                <Link to="/dashboard" onClick={() => setShowUserDropdown(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all">
-                                                    <FaDashcube className="text-lg" />
-                                                    <span>Dashboard</span>
-                                                </Link>
-                                                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all">
-                                                    <IoLogOutOutline className="text-lg" />
-                                                    <span>Logout</span>
-                                                </button>
+                                                <Link to="/view-profile" onClick={() => setShowUserDropdown(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all"><IoPersonOutline className="text-lg" /> View Profile</Link>
+                                                <Link to="/dashboard" onClick={() => setShowUserDropdown(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-blue-600/20 hover:text-white transition-all"><FaDashcube className="text-lg" /> Dashboard</Link>
+                                                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition-all"><IoLogOutOutline className="text-lg" /> Logout</button>
                                             </div>
                                         </motion.div>
                                     )}
@@ -241,7 +206,6 @@ const Navbar = () => {
                         )}
                     </div>
 
-                    {/* Mobile View */}
                     <div className='md:hidden flex items-center space-x-3'>
                         {user ? (
                             <div className="relative" ref={dropdownRef}>
@@ -252,7 +216,6 @@ const Navbar = () => {
                                     </div>
                                     <IoChevronDown className={`ml-1 text-white transition-transform duration-300 ${showUserDropdown ? 'rotate-180' : ''}`} />
                                 </motion.div>
-                                {/* Mobile User Dropdown Logic... Same as Desktop */}
                                 <AnimatePresence>
                                     {showUserDropdown && (
                                         <motion.div initial={{ opacity: 0, y: 10, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.95 }} className="absolute right-0 mt-3 w-64 bg-[#0a1124] border border-gray-700 rounded-lg shadow-2xl z-50">
@@ -261,7 +224,7 @@ const Navbar = () => {
                                                     <img src={user.image || "https://via.placeholder.com/40"} className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover" />
                                                     <div>
                                                         <h3 className="text-white font-bold text-sm">{user.name}</h3>
-                                                        <p className="text-gray-400 text-xs">{user.role || 'Student'}</p>
+                                                        <p className="text-gray-400 text-xs">{user.role || 'User'}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,14 +242,12 @@ const Navbar = () => {
                                 <motion.button className='px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm shadow-lg'>Login</motion.button>
                             </Link>
                         )}
-
                         <motion.button className='text-white p-2 rounded-lg bg-gray-800/50' onClick={toggleMenu} whileTap={{ scale: 0.9 }}>
                             {isOpen ? <IoClose size={24} /> : <CiMenuFries size={24} />}
                         </motion.button>
                     </div>
                 </div>
 
-                {/* Mobile Navigation Menu */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div className='md:hidden bg-[#0a1124]/95 backdrop-blur-lg border-t border-gray-800/50' initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>

@@ -154,7 +154,6 @@ const Dashboard = () => {
         { name: 'Admin Home', path: '/dashboard/admin-home', icon: <HiOutlineHome size={24} /> },
         { name: 'Analytics', path: '/dashboard/analytics', icon: <HiOutlineChartBar size={24} /> },
         { name: 'Users', path: '/dashboard/users', icon: <HiOutlineUsers size={24} /> },
-        { name: 'Projects', path: '/dashboard/projects', icon: <HiOutlineViewGrid size={24} /> },
         { name: 'Main Home', path: '/', icon: <HiOutlineGlobe size={24} /> },
     ];
 

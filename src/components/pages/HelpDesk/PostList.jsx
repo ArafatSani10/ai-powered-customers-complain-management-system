@@ -212,6 +212,7 @@ const PostList = ({ currentUser }) => {
             </div>
 
             <PostDetailsModal
+            className=""
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 postId={selectedPostId}
